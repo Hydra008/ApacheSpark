@@ -139,7 +139,7 @@ df = pd.DataFrame(data)
 4  5
 ```
 
-<b>Creating a dataframe from 2D list
+<b>Creating a dataframe from 2D list</b>
 ```
 data = [['Alex',10],['Bob',12],['Clarke',13]]
 df = pd.DataFrame(data,columns=['Name','Age'])
@@ -192,4 +192,104 @@ print (df)
    a   b     c
 0  1   2   NaN
 1  5  10  20.0
+```
+
+#### Selecting, adding, deleting  Columns
+
+<b>Selecting columns</b>
+
+```
+d = {'one' : pd.Series([1, 2, 3], index=['a', 'b', 'c']),
+   'two' : pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])}
+
+df = pd.DataFrame(d,dtype=np.int64)
+print (df ['one'])
+
+# Output
+a    1
+b    2
+c    3
+d    0
+Name: one, dtype: int64
+```
+
+<b>Adding a column</b>
+```
+df['three']=pd.Series([10,20,30],index=['a','b','c'])
+print (df)
+
+#output
+
+   one  two  three
+a    1    1   10.0
+b    2    2   20.0
+c    3    3   30.0
+d    0    4    NaN
+```
+
+<b>Deleting a column</b>
+```
+del df['four']
+
+# Difference between del and pop is that pop returns the deleted value
+df.pop('three')
+print(df)
+```
+
+
+#### Selecting, adding, deleting, Rows
+
+<b>Selecting a row </b>
+```
+d = {'one' : pd.Series([1, 2, 3], index=['a', 'b', 'c']),
+   'two' : pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])}
+
+df = pd.DataFrame(d,dtype=np.int64)
+
+print(df.loc['a'])
+# or
+print(df.iloc[0])
+
+# output
+one    1.0
+two    1.0
+Name: a, dtype: float64
+```
+
+<b>Adding a row</b>
+```
+d = {'one' : pd.Series([1, 2, 3], index=['a', 'b', 'c']),
+   'two' : pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])}
+
+df = pd.DataFrame(d,dtype=np.int64)
+df2 = pd.DataFrame({'one' : pd.Series([3, 5, 7], index=['a', 'b', 'c']),
+   'two' : pd.Series([9, 8, 7, 6], index=['a', 'b', 'c', 'd'])})
+df = df.append(df2)
+print(df)
+
+# OUTPUT
+ Adding a row
+   one  two
+a  1.0    1
+b  2.0    2
+c  3.0    3
+d  NaN    4
+a  3.0    9
+b  5.0    8
+c  7.0    7
+d  NaN    6
+```
+
+<b>Deleting a row</b>
+
+```
+df = df.drop('d')
+
+# Output
+a  1.0    1
+b  2.0    2
+c  3.0    3
+a  3.0    9
+b  5.0    8
+c  7.0    7
 ```

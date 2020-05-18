@@ -36,3 +36,4 @@ print("\n Create a DataFrame from list of dicts")
 data = [{'a': 1, 'b': 2},{'a': 5, 'b': 10, 'c': 20}]
 df = pd.DataFrame(data)
 print (df)
+
