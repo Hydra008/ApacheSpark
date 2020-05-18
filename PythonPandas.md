@@ -293,3 +293,72 @@ a  3.0    9
 b  5.0    8
 c  7.0    7
 ```
+
+
+### Basic Operations
+
+Here are some list of basic operations that can be done on DF
+
+<li>axes: Returns a list of the row axis labels</li>
+<li>ndim: Return dimension of data frame</li>
+<li>size: Returns size of underlying data</li>
+<li>head: return first n elements</li>
+<li>tail: return last n elements</li>
+<li>shape: returns shape of DF (rows and columns) </li>
+
+```
+import pandas as pd
+
+data = {'Name':['Tom', 'Jack', 'Steve', 'Ricky'],'Age':[28,34,29,42]}
+df = pd.DataFrame(data)
+print (df)
+
+# Return list of row axis labels
+print("\n Return list of row axis labels")
+print(df.axes)
+# Return dimension of data frame
+print("\n Return dimension of data frame")
+print(df.ndim)
+
+# Returns size of underlying data
+print("\nReturns size of underlying data")
+print(df.size)
+# return first n elements
+print("\nreturn first n elements")
+print(df.head(2))
+# return last n elements
+print("\nreturn last n elements")
+print(df.tail(2))
+# returns shape of DF (rows and columns)
+print("\nreturns shape of DF (rows and columns)")
+print(df.shape)
+
+# output
+    Name  Age
+0    Tom   28
+1   Jack   34
+2  Steve   29
+3  Ricky   42
+
+ Return list of row axis labels
+[RangeIndex(start=0, stop=4, step=1), Index(['Name', 'Age'], dtype='object')]
+
+ Return dimension of data frame
+2
+
+Returns size of underlying data
+8
+
+return first n elements
+   Name  Age
+0   Tom   28
+1  Jack   34
+
+return last n elements
+    Name  Age
+2  Steve   29
+3  Ricky   42
+
+returns shape of DF (rows and columns)
+(4, 2)
+```

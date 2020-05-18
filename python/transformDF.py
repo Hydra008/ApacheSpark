@@ -48,8 +48,8 @@ print (df.iloc[0])
 print("\n Adding a row")
 d = {'one' : pd.Series([1, 2, 3], index=['a', 'b', 'c']),
    'two' : pd.Series([1, 2, 3, 4], index=['a', 'b', 'c', 'd'])}
-
 df = pd.DataFrame(d,dtype=np.int64)
+print(df.axes)
 df2 = pd.DataFrame({'one' : pd.Series([3, 5, 7], index=['a', 'b', 'c']),
    'two' : pd.Series([9, 8, 7, 6], index=['a', 'b', 'c', 'd'])})
 df = df.append(df2)
