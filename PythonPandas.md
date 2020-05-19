@@ -916,3 +916,107 @@ print (df)
 r = df.rolling(window=3,min_periods=1)
 print (r.aggregate(np.sum))
 ```
+
+### GroupBy
+
+Any groupBy operation involves any of the following operations on 
+original object
+1. Splitting the Object
+2. Applying a function
+3. Combining the results
+
+
+```
+import pandas as pd
+
+ipl_data = {'Team': ['Riders', 'Riders', 'Devils', 'Devils', 'Kings',
+   'kings', 'Kings', 'Kings', 'Riders', 'Royals', 'Royals', 'Riders'],
+   'Rank': [1, 2, 2, 3, 3,4 ,1 ,1,2 , 4,1,2],
+   'Year': [2014,2015,2014,2015,2014,2015,2016,2017,2016,2014,2015,2017],
+   'Points':[876,789,863,673,741,812,756,788,694,701,804,690]}
+df = pd.DataFrame(ipl_data)
+
+grouped = df.groupby('Year') # groupby on one column
+df.groupby(['Team','Year']) # groupby on multiple column
+```
+
+#### Selecting a group
+
+```
+grouped = df.groupby('Year')
+
+# output
+     Team  Rank  Year  Points
+0  Riders     1  2014     876
+2  Devils     2  2014     863
+4   Kings     3  2014     741
+9  Royals     4  2014     701 
+
+```
+
+Let's try to find total points in the year 2014
+
+```
+year2014 = grouped.get_groups(2014)
+print(year2014['Points'].sum())
+
+#output
+3181
+```
+
+#### Operations on Grouped Data
+
+There are 3 operations we potentially do on Grouped data
+1. Aggregate
+2. Transform
+3. Filter
+
+<b>Aggregate</b>
+```
+print(groupedByYear.agg(np.mean))
+print(groupedByYear.agg([np.sum, np.mean]))
+print(groupedByYear.apply(np.mean))
+
+# Output
+      Rank  Points
+Year              
+2014   2.5  795.25
+2015   2.5  769.50
+2016   1.5  725.00
+2017   1.5  739.00
+     Rank      Points        
+      sum mean    sum    mean
+Year                         
+2014   10  2.5   3181  795.25
+2015   10  2.5   3078  769.50
+2016    3  1.5   1450  725.00
+2017    3  1.5   1478  739.00
+      Rank    Year  Points
+Year                      
+2014   2.5  2014.0  795.25
+2015   2.5  2015.0  769.50
+2016   1.5  2016.0  725.00
+2017   1.5  2017.0  739.00
+```
+
+
+<b>Transform</b>
+
+```
+print(groupedByYear.transform(lambda x: x/2))
+
+#output
+    Rank  Points
+0    0.5   438.0
+1    1.0   394.5
+2    1.0   431.5
+3    1.5   336.5
+4    1.5   370.5
+5    2.0   406.0
+6    0.5   378.0
+7    0.5   394.0
+8    1.0   347.0
+9    2.0   350.5
+10   0.5   402.0
+11   1.0   345.0
+```

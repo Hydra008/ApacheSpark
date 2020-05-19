@@ -22,3 +22,14 @@ print(df)
 df = df.iloc[1].map(lambda x: x*5 / 2)
 print(df)
 
+df1 = pd.DataFrame(np.random.rand(5,3), columns=['col1','col2','col3'])
+print(df1)
+
+# Map only iterates over Series (1D)
+print(df1['col1'].map(lambda x: x*20))
+
+# Apply allows you to apply a function on multiple rows/columns or the entire DF
+print(df1.iloc[[0,2]].apply(lambda x: x*20))
+
+# ApplyMap needs all columns to be of numeric type
+print(df1.applymap(lambda x: x*50))
