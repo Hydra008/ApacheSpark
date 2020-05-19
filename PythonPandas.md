@@ -754,3 +754,49 @@ Sorting on values of multiple columns
 0     2     1
 ```
 
+### Handling missing data
+
+#### Check if is null
+
+```
+
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.random.randn(5, 3), index=['a', 'c', 'e', 'f',
+'h'],columns=['one', 'two', 'three'])
+
+df = df.reindex(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'])
+
+print (df.isnull())
+
+# output
+     one    two  three
+a  False  False  False
+b   True   True   True
+c  False  False  False
+d   True   True   True
+e  False  False  False
+f  False  False  False
+g   True   True   True
+h  False  False  False
+
+```
+
+<b>while doing calculation on missing data, they are treated as 0.
+But if all values are NaN then the result will be NaN
+</b>
+
+```
+df.fillna(0)
+df.fillna(method='pad')
+df.fillna(method='backfill')
+df.dropna()
+```
+
+<b>You can backfill, pad fill or drop missing values</b>
+
+### Handling Categorical Data
+
+### Handling text Data
+
