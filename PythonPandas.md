@@ -362,3 +362,30 @@ return last n elements
 returns shape of DF (rows and columns)
 (4, 2)
 ```
+
+### Statistics function
+
+We can use various statistical function on dataframe as follows
+
+<b>To run Statistical function on columns pass axis =1</b>
+
+```
+df.sum(1)
+```
+
+<b>Statistical methods that can be used</b>
+
+<li>sum</li>
+<li>mean</li>
+<li>median</li>
+<li>mode</li>
+<li>std() - Standard deviation</li>
+<li>min</li>
+<li>max</li>
+<li>abs() - absolute values</li>
+<li>prod() - product of values</li>
+<li>cumsum() - Cumulative Sum</li>
+<li>cumprod() - Cumulative Product</li>
+<li>describe(include='all') - gives all descriptive statistics</li>
+
+
