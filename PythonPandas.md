@@ -567,4 +567,83 @@ durian  2.492731  0.266581  0.850979
 5      -1.971704 -0.109332 -0.709083
 ```
 
+### Iterating over Dataframe
 
+Iterating over a dataframe returns datatype based on the data structure
+being used
+1. Series - returns Value
+2. Dataframe - returns column names
+3. Panel - return item labels
+
+#### To iterate over data frame
+
+1. iteritems() − to iterate over the (key,value) pairs
+2. iterrows() − iterate over the rows as (index,series) pairs
+3. itertuples() − iterate over the rows as namedtuples
+
+<b>iteritms - returns column name, col_series</b> 
+
+```
+import pandas as pd
+import numpy as np
+
+N = 20
+df = pd.DataFrame(np.random.randn(4,3),columns=['col1','col2','col3'])
+print(df)
+
+# Output
+       col1      col2      col3
+0  1.423772  1.369441 -1.853469
+1  0.512531 -0.730716 -0.830438
+2 -2.036453  0.848110  0.403173
+3  0.715503  1.672805 -1.064612
+col1
+0    1.423772
+1    0.512531
+2   -2.036453
+3    0.715503
+Name: col1, dtype: float64
+col2
+0    1.369441
+1   -0.730716
+2    0.848110
+3    1.672805
+Name: col2, dtype: float64
+col3
+0   -1.853469
+1   -0.830438
+2    0.403173
+3   -1.064612
+Name: col3, dtype: float64
+```
+<b>iterrows - returns row index and row_series</b>
+
+```
+print('iterating over rows')
+for row_index, row in df.iterrows():
+    print(row_index)
+    print(row)
+
+#output
+iterating over rows
+0
+col1    0.849058
+col2    0.485207
+col3   -1.820344
+Name: 0, dtype: float64
+1
+col1    1.407456
+col2    0.192189
+col3    0.955135
+Name: 1, dtype: float64
+2
+col1   -0.320405
+col2    0.867971
+col3    0.306524
+Name: 2, dtype: float64
+3
+col1    0.359719
+col2   -1.576341
+col3    0.583396
+Name: 3, dtype: float64
+```
