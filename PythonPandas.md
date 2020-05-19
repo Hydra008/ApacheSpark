@@ -1020,3 +1020,76 @@ print(groupedByYear.transform(lambda x: x/2))
 10   0.5   402.0
 11   1.0   345.0
 ```
+
+### Joins in Pandas Data frame
+
+We can join two dataframes (left and rigjt df) using following syntax
+
+```
+pd.merge(leftDF, rightDF, on="common_fieldName", how="type of join")
+```
+
+<b> example </b>
+
+```
+# Simple Join on just ID
+print(pd.merge(left, right, on='subject_id'))
+
+# Simple join on multiple common columns
+print(pd.merge(left, right, on=['subject_id', 'id']))
+
+# left join - all keys from left column
+print(pd.merge(left, right, on=['subject_id'], how='left'))
+# right join - all keys from right column
+print(pd.merge(left, right, on=['subject_id'], how='right'))
+# outer join - union of keys
+print(pd.merge(left, right, on=['subject_id'], how='outer'))
+# inner join - intersection of keys
+print(pd.merge(left, right, on=['subject_id'], how='inner'))
+
+# output
+   id    Name subject_id
+0   1    Alex       sub1
+1   2     Amy       sub2
+2   3   Allen       sub4
+3   4   Alice       sub6
+4   5  Ayoung       sub5
+   id   Name subject_id
+0   1  Billy       sub2
+1   2  Brian       sub4
+2   3   Bran       sub3
+3   4  Bryce       sub6
+4   5  Betty       sub5
+   id_x  Name_x subject_id  id_y Name_y
+0     2     Amy       sub2     1  Billy
+1     3   Allen       sub4     2  Brian
+2     4   Alice       sub6     4  Bryce
+3     5  Ayoung       sub5     5  Betty
+   id  Name_x subject_id Name_y
+0   4   Alice       sub6  Bryce
+1   5  Ayoung       sub5  Betty
+   id_x  Name_x subject_id  id_y Name_y
+0     1    Alex       sub1   NaN    NaN
+1     2     Amy       sub2   1.0  Billy
+2     3   Allen       sub4   2.0  Brian
+3     4   Alice       sub6   4.0  Bryce
+4     5  Ayoung       sub5   5.0  Betty
+   id_x  Name_x subject_id  id_y Name_y
+0   2.0     Amy       sub2     1  Billy
+1   3.0   Allen       sub4     2  Brian
+2   4.0   Alice       sub6     4  Bryce
+3   5.0  Ayoung       sub5     5  Betty
+4   NaN     NaN       sub3     3   Bran
+   id_x  Name_x subject_id  id_y Name_y
+0   1.0    Alex       sub1   NaN    NaN
+1   2.0     Amy       sub2   1.0  Billy
+2   3.0   Allen       sub4   2.0  Brian
+3   4.0   Alice       sub6   4.0  Bryce
+4   5.0  Ayoung       sub5   5.0  Betty
+5   NaN     NaN       sub3   3.0   Bran
+   id_x  Name_x subject_id  id_y Name_y
+0     2     Amy       sub2     1  Billy
+1     3   Allen       sub4     2  Brian
+2     4   Alice       sub6     4  Bryce
+3     5  Ayoung       sub5     5  Betty
+```
