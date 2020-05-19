@@ -903,3 +903,16 @@ print (df.rolling(window=3).mean()
 ```
 df.expanding(min_periods=3).mean()
 ```
+
+### Aggregation functions
+
+Aggregate functions will apply any window operations to it 
+
+```
+df = pd.DataFrame(np.random.randn(10, 4),
+   index = pd.date_range('1/1/2000', periods=10),
+   columns = ['A', 'B', 'C', 'D'])
+print (df)
+r = df.rolling(window=3,min_periods=1)
+print (r.aggregate(np.sum))
+```
