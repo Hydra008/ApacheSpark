@@ -838,3 +838,68 @@ s.cat.remove_categories("a")
 
 ### Handling text Data
 
+Operations on text data includes
+1. lower() - converts to lower case string
+2. upper() - converts to upper case string
+3. len() - length of String
+4. split() - splits on the separator provided
+5. replace(a,b) - replaces a with b
+6. count() - returns count of apperances
+6. islower(), isupper(), isnumeric()
+7. strip() - removes white spaces
+8. contains - checks for pattern provided
+9. startswith(), endswith(), find() 
+
+```
+s = pd.Series(['Tom ', ' William Rick', 'John', 'Alber@t'])
+
+print ("Strings that start with 'T':")
+print s.str. startswith ('T')
+```
+
+### Window functions
+
+Python provides 3 types of window function that can be applied to a 
+dataframe
+
+1. Rolling (uses same number of window each time)
+2. Expanding (increasing number of window each time)
+3. exponential moving average
+
+```
+df = pd.DataFrame(np.random.randn(10, 4),
+   index = pd.date_range('1/1/2000', periods=10),
+   columns = ['A', 'B', 'C', 'D'])
+print(df)
+print (df.rolling(window=3).mean()
+
+# output
+                   A         B         C         D
+2000-01-01 -1.527308  0.468773 -0.810878 -1.154924
+2000-01-02 -0.860748 -0.426511  1.646501 -0.136477
+2000-01-03  0.634766 -0.893297 -0.278013  0.332552
+2000-01-04  1.420817  1.290515 -0.332443 -0.671766
+2000-01-05 -0.337540  0.982137 -0.537922 -0.174218
+2000-01-06 -0.553567  0.326873 -0.428166  0.413263
+2000-01-07  1.417336 -2.069682  1.409965 -0.204691
+2000-01-08 -0.280715 -1.224854 -0.781816 -1.101787
+2000-01-09  0.508010  0.832045 -0.365776 -0.096992
+2000-01-10 -0.824893  2.308766  0.260663 -1.174649
+                   A         B         C         D
+2000-01-01       NaN       NaN       NaN       NaN
+2000-01-02       NaN       NaN       NaN       NaN
+2000-01-03 -0.584430 -0.283678  0.185870 -0.319616
+2000-01-04  0.398278 -0.009765  0.345348 -0.158564
+2000-01-05  0.572681  0.459785 -0.382793 -0.171144
+2000-01-06  0.176570  0.866508 -0.432844 -0.144240
+2000-01-07  0.175410 -0.253557  0.147959  0.011452
+2000-01-08  0.194351 -0.989221  0.066661 -0.297738
+2000-01-09  0.548210 -0.820830  0.087458 -0.467823
+2000-01-10 -0.199199  0.638652 -0.295643 -0.791143
+```
+
+<b>Expanding</b>
+
+```
+df.expanding(min_periods=3).mean()
+```
