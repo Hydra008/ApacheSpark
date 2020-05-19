@@ -647,3 +647,110 @@ col2   -1.576341
 col3    0.583396
 Name: 3, dtype: float64
 ```
+
+### Sorting a dataframe
+
+There are 2 types of sorting available in pandas
+1. By Label
+2. By Value
+
+<b> By Label </b>
+
+```
+import pandas as pd
+import numpy as np
+
+unsorted_df=pd.DataFrame(np.random.randn(10,2),index=[1,4,6,2,3,5,9,8,0,7],columns=['col2','col1'])
+print (unsorted_df)
+
+# using sort.index () which sorts by row labels in ascending by default
+print('using sort.index () which sorts by row labels in ascending by default')
+print(unsorted_df.sort_index())
+
+# sorting in descending order
+print('sorting in descending order')
+print(unsorted_df.sort_index(ascending=False))
+df = unsorted_df.sort_index(ascending=False)
+
+# Sorting on column label
+print('Sorting on column label')
+print(unsorted_df.sort_index(axis=1))
+
+# output
+       col2      col1
+1 -0.462110 -0.251198
+4  0.175715  0.937223
+6  0.655494  0.503132
+2 -1.862162 -0.497150
+3  1.788112  0.506676
+5  1.510297  0.382907
+9  0.203619  0.139120
+8  0.605300 -0.014597
+0 -0.437943  1.118221
+7  1.789364 -1.761292
+using sort.index () which sorts by row labels in ascending by default
+       col2      col1
+0 -0.437943  1.118221
+1 -0.462110 -0.251198
+2 -1.862162 -0.497150
+3  1.788112  0.506676
+4  0.175715  0.937223
+5  1.510297  0.382907
+6  0.655494  0.503132
+7  1.789364 -1.761292
+8  0.605300 -0.014597
+9  0.203619  0.139120
+sorting in descending order
+       col2      col1
+9  0.203619  0.139120
+8  0.605300 -0.014597
+7  1.789364 -1.761292
+6  0.655494  0.503132
+5  1.510297  0.382907
+4  0.175715  0.937223
+3  1.788112  0.506676
+2 -1.862162 -0.497150
+1 -0.462110 -0.251198
+0 -0.437943  1.118221
+Sorting on column label
+       col1      col2
+1 -0.251198 -0.462110
+4  0.937223  0.175715
+6  0.503132  0.655494
+2 -0.497150 -1.862162
+3  0.506676  1.788112
+5  0.382907  1.510297
+9  0.139120  0.203619
+8 -0.014597  0.605300
+0  1.118221 -0.437943
+7 -1.761292  1.789364
+```
+
+<b>Sorting by values</b>
+
+```
+print('Sorting by values which defaults to column name')
+
+unsorted_df = pd.DataFrame({'col1':[2,1,1,1],'col2':[1,3,2,4]})
+print(unsorted_df)
+sorted_df = unsorted_df.sort_values(by='col1')
+
+print (sorted_df)
+print('Sorting on values of multiple columns')
+sorted_df = unsorted_df.sort_values(by=['col1','col2'])
+print(sorted_df)
+
+# Output
+   col1  col2
+1     1     3
+2     1     2
+3     1     4
+0     2     1
+Sorting on values of multiple columns
+   col1  col2
+2     1     2
+1     1     3
+3     1     4
+0     2     1
+```
+
