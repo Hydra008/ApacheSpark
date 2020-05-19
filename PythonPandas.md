@@ -798,5 +798,43 @@ df.dropna()
 
 ### Handling Categorical Data
 
+You can create categorical data by following ways
+
+1. Make an existing column dtype='categorical'
+2. Using pd.Categorical()
+
+<b>Make an existing column dtype='categorical'</b>
+
+```
+s = pd.Series(["a", "b", "c", "a"], dtype="category")
+print(s)
+```
+
+<b>Using pd.Categories</b>
+```
+cat = cat=pd.Categorical(['a','b','c','a','b','c','d'], ['c', 'b', 'a'],ordered=True)
+print (cat)
+
+# output
+[a, b, c, a, b, c, NaN]
+Categories (3, object): [c < b < a]
+```
+
+<b>Operations on list of Categories</b>
+
+```
+# Get Categories
+print(dog.categories)
+
+# rename Categories
+s.cat.categories = ['Group 1','Group 2', 'Group 3']
+
+# Add Categories
+s = s.cat.add_categories([4])
+
+# Delete Categories
+s.cat.remove_categories("a")
+```
+
 ### Handling text Data
 
