@@ -388,4 +388,183 @@ df.sum(1)
 <li>cumprod() - Cumulative Product</li>
 <li>describe(include='all') - gives all descriptive statistics</li>
 
+### Applying functions on Dataframe
+
+There are three ways to apply functions on dataframe
+1. Apply on entire dataframe
+2. Row or column wise application of function
+3. Element wise application
+
+
+#### Transforming entire dataframe using pipe()
+
+```
+df = pd.DataFrame(np.random.randn(5,3),columns=['col1','col2','col3'])
+print(df)
+print('Applying transformation using pipe function')
+df = df.pipe(adder,10)
+print(df)
+
+# output
+       col1      col2      col3
+0  1.718857  0.787601  2.037968
+1 -0.944845 -1.139104  1.063389
+2  0.961299 -1.173610  0.613398
+3 -1.180832  0.199149  0.805835
+4 -0.246160  0.581590  0.108767
+Applying transformation using pipe function
+        col1       col2       col3
+0  11.718857  10.787601  12.037968
+1   9.055155   8.860896  11.063389
+2  10.961299   8.826390  10.613398
+3   8.819168  10.199149  10.805835
+4   9.753840  10.581590  10.108767
+```
+
+#### Transforming a row or column using apply()
+
+```
+
+df = pd.DataFrame(np.random.randn(5,3),columns=['col1','col2','col3'])
+print(df)
+df = df.apply(lambda x:x +5)
+
+# output
+       col1      col2      col3
+0 -0.117862 -0.630317  0.145441
+1  0.007949  1.705826  0.408508
+2  1.504659  0.088816  0.020661
+3 -1.171822 -1.554522  0.296845
+4  0.683876  0.503192  1.989633
+Applying transformation on columnwise
+       col1      col2      col3
+0  4.882138  4.369683  5.145441
+1  5.007949  6.705826  5.408508
+2  6.504659  5.088816  5.020661
+3  3.828178  3.445478  5.296845
+4  5.683876  5.503192  6.989633
+```
+
+#### transforming elementwise transformation
+
+```
+# applying transformation on row
+df = df.iloc[1].map(lambda x: x*5 / 2)
+print(df)
+
+# output
+col1    12.519873
+col2    16.764566
+col3    13.521271
+Name: 1, dtype: float64
+```
+
+### Reindexing 
+
+```
+import pandas as pd
+import numpy as np
+
+N=20
+
+df = pd.DataFrame({
+   'A': pd.date_range(start='2016-01-01',periods=N,freq='D'),
+   'x': np.linspace(0,stop=N-1,num=N),
+   'y': np.random.rand(N),
+   'C': np.random.choice(['Low','Medium','High'],N).tolist(),
+   'D': np.random.normal(100, 10, size=(N)).tolist()
+})
+
+print(df)
+
+#reindex the DataFrame
+df_reindexed = df.reindex(index=[0,2,5], columns=['A', 'C', 'B'])
+print(df_reindexed)
+
+# Reindex dataframe to match other dataFrame
+import pandas as pd
+import numpy as np
+
+df1 = pd.DataFrame(np.random.randn(10,3),columns=['col1','col2','col3'])
+df2 = pd.DataFrame(np.random.randn(7,3),columns=['col1','col2','col3'])
+
+df1 = df1.reindex_like(df2)
+print (df1)
+
+# Filling while reindexing
+print ("Data Frame with Forward Fill:")
+print (df2.reindex_like(df1,method='ffill'))
+
+# Renaming
+import pandas as pd
+import numpy as np
+
+df1 = pd.DataFrame(np.random.randn(6,3),columns=['col1','col2','col3'])
+print (df1)
+
+print ("After renaming the rows and columns:")
+print (df1.rename(columns={'col1' : 'c1', 'col2' : 'c2'},
+index = {0 : 'apple', 1 : 'banana', 2 : 'durian'}))
+
+# Output
+
+            A     x         y       C           D
+0  2016-01-01   0.0  0.795028  Medium   86.953740
+1  2016-01-02   1.0  0.254945  Medium   94.182287
+2  2016-01-03   2.0  0.898862    High   95.492506
+3  2016-01-04   3.0  0.096036     Low   94.516071
+4  2016-01-05   4.0  0.152021    High   82.622513
+5  2016-01-06   5.0  0.037796    High   96.371575
+6  2016-01-07   6.0  0.816849    High  115.329816
+7  2016-01-08   7.0  0.380446  Medium  106.226126
+8  2016-01-09   8.0  0.094131    High  102.506767
+9  2016-01-10   9.0  0.076712     Low   89.613183
+10 2016-01-11  10.0  0.571446     Low  117.415572
+11 2016-01-12  11.0  0.939859    High   85.230536
+12 2016-01-13  12.0  0.558896    High   89.593345
+13 2016-01-14  13.0  0.599358    High   88.295449
+14 2016-01-15  14.0  0.636190    High  106.802737
+15 2016-01-16  15.0  0.259930     Low   97.237879
+16 2016-01-17  16.0  0.831390  Medium   84.119010
+17 2016-01-18  17.0  0.658593  Medium  105.334082
+18 2016-01-19  18.0  0.278663  Medium  107.817295
+19 2016-01-20  19.0  0.202887  Medium   76.769630
+           A       C   B
+0 2016-01-01  Medium NaN
+2 2016-01-03    High NaN
+5 2016-01-06    High NaN
+       col1      col2      col3
+0  1.491619  0.168158 -1.912189
+1  1.306304 -0.829166 -0.769502
+2 -0.112866 -0.543717 -1.594189
+3 -0.104185 -0.199303  0.136900
+4  1.147521  0.283549  0.919086
+5 -0.833867 -1.605772  0.381373
+6 -0.046821 -0.275396 -0.400615
+Data Frame with Forward Fill:
+       col1      col2      col3
+0 -0.432203  1.321651  0.681611
+1 -1.135024 -1.159128  0.015057
+2  0.618168  1.106675 -0.334433
+3  0.277927  0.083938 -0.989821
+4  0.875348 -0.854404  0.497603
+5 -1.997277 -1.352793 -0.210581
+6  0.101080  0.701516  1.823472
+       col1      col2      col3
+0  0.681592  1.140943 -0.177661
+1  0.294907 -0.073483  0.019141
+2  2.492731  0.266581  0.850979
+3 -0.034508 -0.494404 -0.828926
+4  0.252649 -0.696356  0.248878
+5 -1.971704 -0.109332 -0.709083
+After renaming the rows and columns:
+              c1        c2      col3
+apple   0.681592  1.140943 -0.177661
+banana  0.294907 -0.073483  0.019141
+durian  2.492731  0.266581  0.850979
+3      -0.034508 -0.494404 -0.828926
+4       0.252649 -0.696356  0.248878
+5      -1.971704 -0.109332 -0.709083
+```
+
 
