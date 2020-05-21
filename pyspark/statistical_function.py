@@ -31,8 +31,12 @@ described_df = df.select(['salary']).describe()
 print(described_df.collect()[1][1])
 
 # multiple aggregate functions
-mean_df = df.select('salary').agg(F.mean())
+mean_df = df.agg(F.mean(df.salary))
 print(mean_df.show())
+
+# Get Unique count of countries
+df = df.select('gender').distinct().count()
+print(df)
 
 
 
