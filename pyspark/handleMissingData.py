@@ -35,3 +35,13 @@ print(df1.printSchema())
 # replace null values with mean salary
 print(F.avg(df1.salary))
 # df1 = df1.fillna()
+
+# drop String literal and cast to integer
+df = df.withColumn("cc", F.when(df.cc != '', df.cc).otherwise('0'))
+df = df.withColumn("cc", df.cc.cast(IntegerType()))
+print(df.printSchema())
+
+# replace empty String literal with something
+df = df.withColumn("birthdate",F.when(df.birthdate != '',df.birthdate).otherwise("05/05/2020"))
+df = df.withColumn("birthdate", F.to_date(df.birthdate,'mm/dd/yyyy'))
+print(df.show())

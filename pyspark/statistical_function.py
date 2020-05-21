@@ -31,53 +31,14 @@ described_df = df.select(['salary']).describe()
 print(described_df.collect()[1][1])
 
 # multiple aggregate functions
-#mean_df = df.select('salary').agg(F.mean())
-#print(mean_df.show())
-
-
-# get the average salary for Russia
-#df_filtered  = df.filter(df('country') == 'Russia').groupBy()
-
-# filtering on String
-print(df.filter(df.country == 'Russia').show())
-
-# filtering on integer
-print(df.filter(df.id < 50).show())
-
-# filtering on multiple conditions
-print(df.filter((df.id < 50) & (df.id > 30)).show())
-
-# filtering on timestamp
-
-startDate = "2016-02-02 14:09:48"
-endDate = "2016-02-02 22:43:17"
-print(df.filter(df['registration_dttm'].between(startDate, endDate)).show())
+mean_df = df.select('salary').agg(F.mean())
+print(mean_df.show())
 
 
 
-# filtering on date
 
-def transform(row):
-    print(row)
-    return row
-rdd = df.select(df.birthdate).rdd
-rdd_clean = rdd.map(lambda x: transform(list(x)[0])).collect()
-rdd_DF = rdd.map(lambda x: (x,)).toDF()
-print(rdd_DF.show())
 
-# replace empty String literal with something
-df = df.withColumn("birthdate",F.when(df.birthdate != '',df.birthdate).otherwise("05/05/2020"))
 
-# Drop empty String literals from birthdate column
-df = df.filter(df.birthdate != '')
-print(df.show())
-df = df.withColumn("birthdate", to_date(df.birthdate,'mm/dd/yyyy'))
-print(df.show())
-# filter on the birthdate
-print(df.filter(df['birthdate'].between("1970-02-01","1975-02-02")).show())
 
-# drop String literal and cast to integer
-df = df.withColumn("cc", F.when(df.cc != '', df.cc).otherwise('0'))
-df = df.withColumn("cc", df.cc.cast(IntegerType()))
-print(df.printSchema())
+
 
