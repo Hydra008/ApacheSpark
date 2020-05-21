@@ -36,3 +36,4 @@ print(df.show())
 # Sort ascending in 1 column and descending in other
 df = df.orderBy(['gender','country'], ascending=[False,True])
 print(df.show())
+
